@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2273B626-0EFC-0D40-0E14-9FC298FA5C94}</ProjectGuid>
+    <ProjectGuid>{B50C39FD-9980-29ED-F13B-AB929491CF78}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Unit\BaseUnit.cs" />
+    <Compile Include="Assets\Scripts\Unit\Character.cs" />
     <Compile Include="Assets\Scripts\Unit\Furniture.cs" />
     <Compile Include="Assets\Scripts\Unit\HistoricalData.cs" />
     <Compile Include="Assets\Scripts\Unit\Tile.cs" />
@@ -596,31 +597,31 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.13f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/samer/Desktop/uaal-example-master/uaal-example-master/practice/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/samer/Desktop/Malive_Unity/MaLive_Unity/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
