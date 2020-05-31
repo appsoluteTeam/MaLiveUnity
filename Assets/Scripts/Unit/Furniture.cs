@@ -122,7 +122,7 @@ namespace Model
                 block.transform.localScale = new Vector3(1f, 1f, 1f);
 //                block.transform.position = new Vector3(tile.gameObject.transform.position.x, 0, tile.gameObject.transform.position.y * 2);
 
-                block.transform.position = new Vector3(tile.gameObject.transform.position.x, 0, tile.gameObject.transform.position.y);
+                block.transform.position = new Vector3(tile.gameObject.transform.position.x, 0, tile.gameObject.transform.position.z);
                 block.AddComponent<NavMeshObstacle>().carving = true;
                 block.GetComponent<Renderer>().enabled = false;
                 blocks.Add(block);

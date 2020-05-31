@@ -63,6 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AIManager.cs" />
+    <Compile Include="Assets\Scripts\GridManager.cs" />
+    <Compile Include="Assets\Scripts\Sorter.cs" />
+    <Compile Include="Assets\Scripts\Tiles.cs" />
     <Compile Include="Assets\Scripts\Unit\BaseUnit.cs" />
     <Compile Include="Assets\Scripts\Unit\Character.cs" />
     <Compile Include="Assets\Scripts\Unit\Furniture.cs" />
