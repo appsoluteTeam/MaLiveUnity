@@ -71,14 +71,16 @@ namespace Model
         //게임오브젝트의 위치를 타일의 위치로 옮긴다.
         public void Move(Tile tile)
         {
-            gameObject.transform.position = tile.transform.position;
+            gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x+length/2,tile.gameObject.transform.position.y+height/2
+                ,tile.gameObject.transform.position.z+width/2);
             origin = tile;
+            Debug.Log(origin.name);
         }
 
         //각 방향별 게임오브젝트마다 색깔을 바꾸어줌
         public void SetColor(Color color)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = color;
+            gameObject.GetComponent<Renderer>().material.color = color;
         }
 
 
@@ -87,6 +89,10 @@ namespace Model
             base.tiles = tiles;
             //물체가 있는 타일을 block시킨다
             base.tiles.ForEach(tile => tile.isBlock = true);
+            foreach(var tile in tiles)
+            {
+                Debug.Log("여기다"+tile.name);
+            }
 
             //랜더링 시키기?
             //layer 호가정
@@ -95,18 +101,20 @@ namespace Model
             //취소했을때를 위하여
             previous = new HistoricalData(origin, direction);
             //create box collider in 3D.
-            Block(tiles);
+          //  Block(tiles);
         }
 
         public void Unplaced()
         {
+            Debug.Log("unplaced called");
             tiles.ForEach(tile => tile.isBlock = false);
             tiles = new List<Tile>();
 
             //PREVIEW로 옮김
             gameObject.GetComponent<Renderer>().sortingLayerName = PREVIEW_LAYER;
 
-            UnBlock();
+        //    UnBlock();
+
         }
 
         //이 함수는 무엇이냐? navigation을 위하여 물체에 큐브를 두어 캐릭터가 못지나가게 막아주는것

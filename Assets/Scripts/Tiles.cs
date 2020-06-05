@@ -29,7 +29,7 @@ public class Tiles : MonoBehaviour {
     {
         Mesh mesh = new Mesh();
         //vertices = 꼭지점 만들기
-        mesh.vertices = new Vector3[] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
+        mesh.vertices = new Vector3[] { new Vector3(0, 0, 0), new Vector3(0, 0, 1), new Vector3(1, 0, 1), new Vector3(1, 0, 0) };
         //triangles = 삼각형으로 만들어 4각형을 만듬
         mesh.triangles = new int[] { 1, 2, 3, 0, 1, 3 };
 

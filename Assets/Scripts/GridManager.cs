@@ -18,7 +18,10 @@ public class GridManager : MonoBehaviour {
     public Button rotateButton;
 	public Button undoButton;
     public Toggle mode;
-    public SpriteRenderer grids;
+
+
+    private float mZCoord;
+    private Vector3 mOffset;
 
     void Awake ()
     {
@@ -45,14 +48,14 @@ public class GridManager : MonoBehaviour {
     }
 	
 	void Update () {
-
         if (!mode.isOn)
             return;
         mode.interactable = SelectedFurniture == null;
-        
-        if (Input.GetMouseButtonDown(0))
-            OnBeginDrag(isHold => dragging = isHold);
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnBeginDrag(isHold => dragging = isHold);
+        }
         else if (Input.GetMouseButtonUp(0))
         {
             dragging = false;
@@ -70,10 +73,12 @@ public class GridManager : MonoBehaviour {
             var furniture = OnSelect(child => child.transform.parent.GetComponent<Furniture>() != null);
             if (furniture != null)
             {
-                SelectedFurniture = furniture.transform.parent.GetComponent<Furniture>();
+                SelectedFurniture = furniture.GetComponent<Furniture>();
                 SelectedFurniture.Unplaced();
             }
             isHold(furniture != null);
+
+
         }
         else
         {
@@ -88,7 +93,7 @@ public class GridManager : MonoBehaviour {
         if (SelectedFurniture == null)
             return;
 
-        var tile = OnSelect(obj => obj.GetComponent<Tile>() != null);
+        var tile = OnSelectTile(obj => obj.GetComponent<Tile>() != null);
         if (tile != null)
         {
             interactBtnGroup.gameObject.SetActive(false);
@@ -125,11 +130,55 @@ public class GridManager : MonoBehaviour {
 
     private GameObject OnSelect(Predicate<GameObject> condition)
 	{	
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hits = Physics.RaycastAll(ray, Mathf.Infinity);
-        foreach (var hit in hits)
-            if (condition(hit.transform.gameObject))
+        //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       // var hits = Physics.RaycastAll(ray, Mathf.Infinity);
+
+      //  foreach (var hit in hits)
+       //     if (condition(hit.transform.gameObject))
+      //      {
+      //          Debug.Log("hoelo");
+      //          return hit.transform.gameObject;
+     //       }
+     //   return null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if (hit.transform.gameObject.GetComponent<Furniture>() != null)
+            {
+                Debug.Log(hit.transform.gameObject.name);
                 return hit.transform.gameObject;
+            }
+            
+        }
+        return null;
+    }
+
+    private GameObject OnSelectTile(Predicate<GameObject> condition)
+    {
+        //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // var hits = Physics.RaycastAll(ray, Mathf.Infinity);
+
+        //  foreach (var hit in hits)
+        //     if (condition(hit.transform.gameObject))
+        //      {
+        //          Debug.Log("hoelo");
+        //          return hit.transform.gameObject;
+        //       }
+        //   return null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if (hit.transform.gameObject.GetComponent<Tile>() != null)
+            {
+                Debug.Log(hit.transform.gameObject.name);
+                return hit.transform.gameObject;
+            }
+
+        }
         return null;
     }
 
@@ -177,5 +226,19 @@ public class GridManager : MonoBehaviour {
         furniture.Move (furniture.previous.tile);
         furniture.Rotate (furniture.previous.direction);
         OnPlaceFurniture(furniture);
+    }
+
+    private Vector3 GetMouseAsWorldPoint()
+
+    {
+        // Pixel coordinates of mouse (x,y)
+        Vector3 mousePoint = Input.mousePosition;
+
+        // z coordinate of game object on screen
+        mousePoint.z = mZCoord;
+
+        // Convert it to world points
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+
     }
 }

@@ -255,7 +255,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 213978dca075a4a14b1daa4ab6c47c22, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -301,8 +301,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123015862}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.3245249, y: -0.88469124, z: -4.5964413}
-  m_LocalScale: {x: 1, y: 1, z: 2}
+  m_LocalPosition: {x: 0, y: -0.88469124, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 3}
   m_Children: []
   m_Father: {fileID: 1902124002}
   m_RootOrder: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffb6184284e6f3549832c656747d79af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1
+  width: 2
   length: 2
   height: 1
 --- !u!65 &123015865
@@ -353,7 +353,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 567a64431eb194240971bd87c51bc535, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1278,7 +1278,6 @@ MonoBehaviour:
   rotateButton: {fileID: 384055861}
   undoButton: {fileID: 1688522262}
   mode: {fileID: 610053000}
-  grids: {fileID: 0}
 --- !u!114 &1225655285
 MonoBehaviour:
   m_ObjectHideFlags: 0
