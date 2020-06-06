@@ -206,7 +206,7 @@ public class GridManager : MonoBehaviour {
                 var tile = tiles.GetTileByCoordinate(furniture.origin.x + j, furniture.origin.z + i);
                 if (tile == null || tile.isBlock)
                 {
-                    furniture.SetColor(Color.red);
+                    furniture.SetColor(Color.red);  
                     return true;
                 }
 

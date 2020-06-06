@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -31,6 +32,13 @@ namespace Model
         private const string Unit_LAYER = "Unit";
         private const string PREVIEW_LAYER = "Preview";
 
+        private GameObject pivot;
+
+        public void Start()
+        {
+            pivot = transform.parent.gameObject;
+        }
+
         //회전
         public void Rotate()
         {
@@ -43,7 +51,7 @@ namespace Model
             //gameobject들중 해당 direction만 남기고 나머지 setActive false
             //ListDirectionItem[(int)direction].SetActive(true);
             //가로 세로 조정
-            transform.Rotate(0, 90, 0);
+            pivot.transform.Rotate(0, 90, 0);
             var temp = width;
             width = length;
             length = temp;
@@ -61,7 +69,7 @@ namespace Model
                 length = temp;
             }
             direction = dir;
-            transform.Rotate(0, 90, 0);
+            pivot.transform.Rotate(0, 90, 0);
 //            foreach (var diritem in ListDirectionItem)
 //                diritem.SetActive(false);
 
@@ -71,8 +79,9 @@ namespace Model
         //게임오브젝트의 위치를 타일의 위치로 옮긴다.
         public void Move(Tile tile)
         {
-            gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x+length/2,tile.gameObject.transform.position.y+height/2
-                ,tile.gameObject.transform.position.z+width/2);
+            gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x+length/2.0f-0.5f,tile.gameObject.transform.position.y+height/2
+                ,tile.gameObject.transform.position.z+width/2.0f-0.5f);
+           // pivot.transform.position = tile.gameObject.transform.position;
             origin = tile;
             Debug.Log(origin.name);
         }
