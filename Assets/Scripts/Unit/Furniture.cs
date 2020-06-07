@@ -22,7 +22,7 @@ namespace Model
         //public GameObject[] ListDirectionItem = new GameObject[4];
 
         //south가 기본값
-        private Direction direction = Direction.South;
+        public Direction direction = Direction.South;
 
         //이전 값? 잘 모르겠당
         public HistoricalData previous { get; private set; }
@@ -55,6 +55,7 @@ namespace Model
             var temp = width;
             width = length;
             length = temp;
+            Debug.Log(direction);
         }
 
 
@@ -79,9 +80,9 @@ namespace Model
         //게임오브젝트의 위치를 타일의 위치로 옮긴다.
         public void Move(Tile tile)
         {
-            gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x+length/2.0f-0.5f,tile.gameObject.transform.position.y+height/2
-                ,tile.gameObject.transform.position.z+width/2.0f-0.5f);
-           // pivot.transform.position = tile.gameObject.transform.position;
+          //  gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x+length/2.0f-0.5f,tile.gameObject.transform.position.y+height/2
+            //    ,tile.gameObject.transform.position.z+width/2.0f-0.5f);
+            pivot.transform.position = tile.gameObject.transform.position;
             origin = tile;
             Debug.Log(origin.name);
         }

@@ -63,7 +63,9 @@ public class GridManager : MonoBehaviour {
         }
 
         if (dragging)
+        {
             OnDrag();
+        }
     }
 
     private void OnBeginDrag(Action<bool> isHold) {
@@ -78,12 +80,11 @@ public class GridManager : MonoBehaviour {
             }
             isHold(furniture != null);
 
-
         }
         else
         {
             var furniture = OnSelect(child => child.transform.parent.GetComponent<Furniture>() != null);
-            isHold(furniture != null && furniture.transform.parent.GetComponent<Furniture>() == SelectedFurniture);
+            isHold(furniture != null && furniture.transform.GetComponent<Furniture>() == SelectedFurniture);
         }
 
     }
@@ -142,6 +143,7 @@ public class GridManager : MonoBehaviour {
      //   return null;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        Debug.Log("OnSelected");
 
         if (Physics.Raycast(ray, out hit, 100))
         {
@@ -199,18 +201,38 @@ public class GridManager : MonoBehaviour {
     private bool OnInvalid(Furniture furniture, out List<Tile> area)
     {
         area = new List<Tile>();
-        for (int i = 0; i < furniture.width; i++)
+        if (furniture.direction == Direction.North || furniture.direction == Direction.East)
         {
-            for (int j = 0; j < furniture.length; j++)
+            for (int i = 0; i < furniture.width; i++)
             {
-                var tile = tiles.GetTileByCoordinate(furniture.origin.x + j, furniture.origin.z + i);
-                if (tile == null || tile.isBlock)
+                for (int j = 0; j < furniture.length; j++)
                 {
-                    furniture.SetColor(Color.red);  
-                    return true;
-                }
+                    var tile = tiles.GetTileByCoordinate(furniture.origin.x - j, furniture.origin.z - i);
+                    if (tile == null || tile.isBlock)
+                    {
+                        furniture.SetColor(Color.red);
+                        return true;
+                    }
 
-                area.Add(tile);
+                    area.Add(tile);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < furniture.width; i++)
+            {
+                for (int j = 0; j < furniture.length; j++)
+                {
+                    var tile = tiles.GetTileByCoordinate(furniture.origin.x + j, furniture.origin.z + i);
+                    if (tile == null || tile.isBlock)
+                    {
+                        furniture.SetColor(Color.red);
+                        return true;
+                    }
+
+                    area.Add(tile);
+                }
             }
         }
 
