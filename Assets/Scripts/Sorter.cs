@@ -42,7 +42,7 @@ public class Sorter : MonoBehaviour {
         }
     }
 
-    private void Add(BaseUnit unit)
+    public void Add(BaseUnit unit)
     {
         if (unit.origin == null)
             return;

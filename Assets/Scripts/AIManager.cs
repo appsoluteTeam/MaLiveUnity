@@ -58,12 +58,20 @@ public class AIManager : MonoBehaviour {
                     {
                         var position = selectedTile.gameObject.transform.position;
                         agent.SetDestination(new Vector3(position.x, 0, position.z));
+                        Vector2 positionOnScreen = Camera.main.WorldToViewportPoint(idol.transform.position);
+                        Vector2 mouseOnScreen = (Vector2)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+                        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+                        idol.transform.rotation = Quaternion.Euler(new Vector3(-90f, 0f, angle));
+
                     }
                 }
                 
             }
         }
+        float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+        {
+            return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+        }
 
-       
     }
 }
