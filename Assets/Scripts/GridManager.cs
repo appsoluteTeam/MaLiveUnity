@@ -7,8 +7,7 @@ using Model;
 public class GridManager : MonoBehaviour {
 
     private Tiles tiles;
-    private Sorter sorter;
-
+    
     private Furniture SelectedFurniture;
 
     private bool dragging = false;
@@ -18,21 +17,21 @@ public class GridManager : MonoBehaviour {
     public Button rotateButton;
 	public Button undoButton;
     public Toggle mode;
-
-
     private float mZCoord;
     private Vector3 mOffset;
 
+    public Button addButton_test;
+    public GameObject sample_object;
+
     void Awake ()
     {
-        sorter = GameObject.Find("Unit").GetComponent<Sorter>();
+
         tiles = GameObject.Find("Tiles").GetComponent<Tiles>();
     }
 
     void Start () {
         placeButton.onClick.AddListener(() => {
 			OnPlaceFurniture(SelectedFurniture);
-            sorter.SortAll();
             interactBtnGroup.gameObject.SetActive(false);
         });
         rotateButton.onClick.AddListener(() => {
@@ -41,9 +40,12 @@ public class GridManager : MonoBehaviour {
         });
         undoButton.onClick.AddListener(() => {
             OnUndo(SelectedFurniture);
-            sorter.SortAll();
 			interactBtnGroup.gameObject.SetActive(false);
 		});
+        addButton_test.onClick.AddListener(() =>
+        {
+            AddNewFurniture(0);
+        });
       //  mode.onValueChanged.AddListener(value => grids.enabled = value);
     }
 	
@@ -248,6 +250,41 @@ public class GridManager : MonoBehaviour {
         furniture.Move (furniture.previous.tile);
         furniture.Rotate (furniture.previous.direction);
         OnPlaceFurniture(furniture);
+    }
+
+    private void AddNewFurniture(int furniture_id)
+    {
+        GameObject temp = Instantiate(sample_object, new Vector3(-1, -1, -1), Quaternion.identity);
+        
+        temp.transform.parent = GameObject.Find("Unit").transform;
+        if (getAvailablePosition(temp))
+        {
+            OnPlaceFurniture(temp.transform.GetChild(0).GetComponent<Furniture>());
+        }
+        else
+        {
+            Destroy(temp);
+        }
+        
+    }
+
+    private bool getAvailablePosition(GameObject new_object)
+    {
+        Furniture new_furniture = new_object.transform.GetChild(0).GetComponent<Furniture>();
+        for(int i=1; i < tiles.width; i++)
+        {
+            for(int j=1; j< tiles.length; j++)
+            {
+                List<Tile> area;
+                new_furniture.setOrigin(tiles.GetTileByCoordinate(i, j));
+                if (!OnInvalid(new_furniture, out area))
+                {
+                    new_object.transform.position = tiles.GetTileByCoordinate(i, j).transform.position;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private Vector3 GetMouseAsWorldPoint()

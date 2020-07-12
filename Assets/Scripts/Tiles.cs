@@ -7,10 +7,12 @@ public class Tiles : MonoBehaviour {
     //10칸짜리
     public int width = 10;
     public int length = 10;
+    public int basetileX = 7;
+    public int basetileZ = 1;
     //c# 문법 2차원 배열을 뜻함
     private Tile[,] tiles;
     private int autoIncrement = 1;
-
+    private Tile basetile;
     void Start()
     {
         tiles = new Tile[width, length];
@@ -23,6 +25,7 @@ public class Tiles : MonoBehaviour {
                 tiles[x,z] = GenerateTile(x, z);
             }
         }
+        basetile = GenerateTile(basetileX, basetileZ);
     }
 
     private Tile GenerateTile(int x, int z)
@@ -44,6 +47,14 @@ public class Tiles : MonoBehaviour {
 
         return tile;
     }
+    /*
+    //bfs 사용
+    public Tile GetAvailableTiles(int width, int height)
+    {
+        for()
+        
+        return availabletile;
+    }*/
 
 
     public Tile GetTileByCoordinate(int x, int z)

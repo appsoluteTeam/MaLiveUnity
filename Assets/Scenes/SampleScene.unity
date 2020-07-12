@@ -249,7 +249,7 @@ PrefabInstance:
     - target: {fileID: 2514776070063762414, guid: 56c66bbafe6784b469f5586dc5fb0e80,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2514776070063762414, guid: 56c66bbafe6784b469f5586dc5fb0e80,
         type: 3}
@@ -413,6 +413,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 10
   length: 10
+  basetileX: 3
+  basetileZ: 1
 --- !u!1 &203940737
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,12 +538,12 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
@@ -1161,7 +1163,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,9 +1494,7 @@ MonoBehaviour:
   placeButton: {fileID: 479001273}
   rotateButton: {fileID: 384055861}
   undoButton: {fileID: 1688522262}
-  NewFurnitureBtt: {fileID: 1137388105}
   mode: {fileID: 610053000}
-  testF: {fileID: 2514776070063762413, guid: 56c66bbafe6784b469f5586dc5fb0e80, type: 3}
 --- !u!114 &1225655285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2134,7 +2134,7 @@ PrefabInstance:
     - target: {fileID: 2514776070063762414, guid: 56c66bbafe6784b469f5586dc5fb0e80,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2514776070063762414, guid: 56c66bbafe6784b469f5586dc5fb0e80,
         type: 3}

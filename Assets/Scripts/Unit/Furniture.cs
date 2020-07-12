@@ -37,6 +37,7 @@ namespace Model
         public void Start()
         {
             pivot = transform.parent.gameObject;
+            //orgin = baseTiel
         }
 
         //회전
@@ -56,6 +57,11 @@ namespace Model
             width = length;
             length = temp;
             Debug.Log(direction);
+        }
+
+        public void setOrigin(Tile tile)
+        {
+            origin = tile;
         }
 
 

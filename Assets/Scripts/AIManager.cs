@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class AIManager : MonoBehaviour {
 
-    private Sorter sorter;
     private Tiles tiles;
 
     public NavMeshAgent agent;
@@ -14,7 +13,6 @@ public class AIManager : MonoBehaviour {
 
     void Awake()
     {
-        sorter = GameObject.Find("Unit").GetComponent<Sorter>();
         tiles = GameObject.Find("Tiles").GetComponent<Tiles>();
     }
 
@@ -29,7 +27,6 @@ public class AIManager : MonoBehaviour {
         if (unit.origin != tile)
         {
             unit.UpdateTile(tile);
-            sorter.SortUnit(unit);
         }
 
         //좌우 변경
