@@ -20,7 +20,10 @@ public class GridManager : MonoBehaviour {
     private Vector3 mOffset;
 
     public Button addButton_test;
-    public GameObject sample_object;
+    public GameObject sample_object; 
+    
+    private float planeY;
+
 
     void Awake ()
     {
@@ -74,8 +77,6 @@ public class GridManager : MonoBehaviour {
             {
                 SelectedFurniture = furniture.GetComponent<Furniture>();
                 SelectedFurniture.Unplaced();
-                mZCoord = Camera.main.WorldToScreenPoint(SelectedFurniture.transform.position).z;
-                mOffset = SelectedFurniture.transform.position - GetMouseAsWorldPoint();
             }
             isHold(furniture != null);
         }
@@ -83,9 +84,7 @@ public class GridManager : MonoBehaviour {
         {
             var furniture = OnSelect(child => child.transform.parent.GetComponent<Furniture>() != null);
             isHold(furniture != null && furniture.transform.GetComponent<Furniture>() == SelectedFurniture);
-            mZCoord = Camera.main.WorldToScreenPoint(SelectedFurniture.transform.position).z;
-            // Store offset = gameobject world pos - mouse world pos
-            mOffset = SelectedFurniture.transform.position - GetMouseAsWorldPoint();
+        
         }
     
     }
@@ -94,8 +93,18 @@ public class GridManager : MonoBehaviour {
     {
         if (SelectedFurniture == null)
             return;
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        float distance; // the distance from the ray origin to the ray intersection of the plane
+        planeY = SelectedFurniture.transform.localScale.y/2;
+        Plane plane = new Plane(Vector3.up, Vector3.up * planeY); // ground plane
+        if (plane.Raycast(ray, out distance))
+        {
+            SelectedFurniture.Move(ray.GetPoint(distance));
+        }
         interactBtnGroup.gameObject.SetActive(false);
-        SelectedFurniture.Move(GetMouseAsWorldPoint() + mOffset);
+        
     }
 
     private void OnEndDrag()
@@ -203,7 +212,7 @@ public class GridManager : MonoBehaviour {
 
     private void AddNewFurniture(int furniture_id)
     {
-        GameObject temp = Instantiate(sample_object, new Vector3(1, 0, 1), Quaternion.identity);
+        GameObject temp = Instantiate(sample_object, new Vector3(1, sample_object.transform.localScale.y/2, 1), Quaternion.identity);
 
         temp.transform.parent = GameObject.Find("Unit").transform;
         OnPlaceFurniture(temp.GetComponent<Furniture>());

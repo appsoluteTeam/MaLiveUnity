@@ -41,9 +41,7 @@ namespace Model
 
         public void Move(Vector3 pos)
         {
-            pos.y = 0;
             transform.position = pos;
-            Debug.Log(pos.x + "," + pos.y + "," + pos.z);
         }
 
         public void SetColor(Color color)
