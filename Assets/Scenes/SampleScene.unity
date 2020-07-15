@@ -273,53 +273,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105410421}
   m_CullTransparentMesh: 0
---- !u!1 &152969657
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 152969658}
-  - component: {fileID: 152969659}
-  m_Layer: 0
-  m_Name: Tiles
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &152969658
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152969657}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &152969659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 152969657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76e64cc2a730d8d4389a2be30872b3d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 10
-  length: 10
-  basetileX: 3
-  basetileZ: 1
 --- !u!1 &203940737
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +376,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
@@ -433,7 +386,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: b623b5c32df1539409ee7e56a553f380,
         type: 3}
@@ -521,9 +474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa20278a0d1a70942a4a3a49f1726e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1
-  length: 1
-  height: 1
 --- !u!136 &334139271
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1479,7 +1429,7 @@ MonoBehaviour:
   undoButton: {fileID: 1688522262}
   mode: {fileID: 610053000}
   addButton_test: {fileID: 976402411}
-  sample_object: {fileID: 2514776070063762413, guid: 56c66bbafe6784b469f5586dc5fb0e80,
+  sample_object: {fileID: 5508827633070769910, guid: a6a760ece4e6e35499883f7955711726,
     type: 3}
 --- !u!114 &1225655285
 MonoBehaviour:
