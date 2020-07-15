@@ -41,7 +41,8 @@ namespace Model
 
         public void Move(Vector3 pos)
         {
-            transform.position = pos;
+            Rigidbody r = transform.GetComponent<Rigidbody>();
+            r.velocity = (pos - transform.position) * 10;
         }
 
         public void SetColor(Color color)

@@ -207,7 +207,7 @@ public class GridManager : MonoBehaviour {
 
         furniture.Move (furniture.previous.pos);
         furniture.Rotate (furniture.previous.direction);
-         OnPlaceFurniture(furniture);
+        OnPlaceFurniture(furniture);
     }
 
     private void AddNewFurniture(int furniture_id)
