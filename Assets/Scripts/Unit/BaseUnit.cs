@@ -26,7 +26,7 @@ namespace Model
             }
         }
 
-        public Tile origin { get; protected set; }
+        public Tile origin { get; set; }
         
         //unit이 가지고 있는 타일들
         protected List<Tile> tiles = new List<Tile>();

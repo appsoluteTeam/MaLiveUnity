@@ -10,7 +10,6 @@ public class Tiles : MonoBehaviour {
     //c# 문법 2차원 배열을 뜻함
     private Tile[,] tiles;
     private int autoIncrement = 1;
-
     void Start()
     {
         tiles = new Tile[width, length];
@@ -29,7 +28,7 @@ public class Tiles : MonoBehaviour {
     {
         Mesh mesh = new Mesh();
         //vertices = 꼭지점 만들기
-        mesh.vertices = new Vector3[] { new Vector3(-1, 0, 1), new Vector3(1, 0, 1), new Vector3(1, 0, -1), new Vector3(-1, 0, -1) };
+        mesh.vertices = new Vector3[] { new Vector3(-0.5f, 0, 0.5f), new Vector3(0.5f, 0, 0.5f), new Vector3(0.5f, 0, -0.5f), new Vector3(-0.5f, 0, -0.5f) };
         //triangles = 삼각형으로 만들어 4각형을 만듬
         mesh.triangles = new int[] { 1, 2, 3, 0, 1, 3 };
 
@@ -44,6 +43,14 @@ public class Tiles : MonoBehaviour {
 
         return tile;
     }
+    /*
+    //bfs 사용
+    public Tile GetAvailableTiles(int width, int height)
+    {
+        for()
+        
+        return availabletile;
+    }*/
 
 
     public Tile GetTileByCoordinate(int x, int z)

@@ -7,8 +7,7 @@ using Model;
 public class GridManager : MonoBehaviour {
 
     private Tiles tiles;
-    private Sorter sorter;
-
+    
     private Furniture SelectedFurniture;
 
     private bool dragging = false;
@@ -18,18 +17,21 @@ public class GridManager : MonoBehaviour {
     public Button rotateButton;
 	public Button undoButton;
     public Toggle mode;
-    public SpriteRenderer grids;
+    private float mZCoord;
+    private Vector3 mOffset;
+
+    public Button addButton_test;
+    public GameObject sample_object;
 
     void Awake ()
     {
-        sorter = GameObject.Find("Unit").GetComponent<Sorter>();
+
         tiles = GameObject.Find("Tiles").GetComponent<Tiles>();
     }
 
     void Start () {
         placeButton.onClick.AddListener(() => {
 			OnPlaceFurniture(SelectedFurniture);
-            sorter.SortAll();
             interactBtnGroup.gameObject.SetActive(false);
         });
         rotateButton.onClick.AddListener(() => {
@@ -38,21 +40,24 @@ public class GridManager : MonoBehaviour {
         });
         undoButton.onClick.AddListener(() => {
             OnUndo(SelectedFurniture);
-            sorter.SortAll();
 			interactBtnGroup.gameObject.SetActive(false);
 		});
+        addButton_test.onClick.AddListener(() =>
+        {
+            AddNewFurniture(0);
+        });
       //  mode.onValueChanged.AddListener(value => grids.enabled = value);
     }
 	
 	void Update () {
-
         if (!mode.isOn)
             return;
         mode.interactable = SelectedFurniture == null;
-        
-        if (Input.GetMouseButtonDown(0))
-            OnBeginDrag(isHold => dragging = isHold);
 
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnBeginDrag(isHold => dragging = isHold);
+        }
         else if (Input.GetMouseButtonUp(0))
         {
             dragging = false;
@@ -60,7 +65,9 @@ public class GridManager : MonoBehaviour {
         }
 
         if (dragging)
+        {
             OnDrag();
+        }
     }
 
     private void OnBeginDrag(Action<bool> isHold) {
@@ -70,15 +77,16 @@ public class GridManager : MonoBehaviour {
             var furniture = OnSelect(child => child.transform.parent.GetComponent<Furniture>() != null);
             if (furniture != null)
             {
-                SelectedFurniture = furniture.transform.parent.GetComponent<Furniture>();
+                SelectedFurniture = furniture.GetComponent<Furniture>();
                 SelectedFurniture.Unplaced();
             }
             isHold(furniture != null);
+
         }
         else
         {
             var furniture = OnSelect(child => child.transform.parent.GetComponent<Furniture>() != null);
-            isHold(furniture != null && furniture.transform.parent.GetComponent<Furniture>() == SelectedFurniture);
+            isHold(furniture != null && furniture.transform.GetComponent<Furniture>() == SelectedFurniture);
         }
 
     }
@@ -88,7 +96,7 @@ public class GridManager : MonoBehaviour {
         if (SelectedFurniture == null)
             return;
 
-        var tile = OnSelect(obj => obj.GetComponent<Tile>() != null);
+        var tile = OnSelectTile(obj => obj.GetComponent<Tile>() != null);
         if (tile != null)
         {
             interactBtnGroup.gameObject.SetActive(false);
@@ -125,11 +133,56 @@ public class GridManager : MonoBehaviour {
 
     private GameObject OnSelect(Predicate<GameObject> condition)
 	{	
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hits = Physics.RaycastAll(ray, Mathf.Infinity);
-        foreach (var hit in hits)
-            if (condition(hit.transform.gameObject))
+        //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       // var hits = Physics.RaycastAll(ray, Mathf.Infinity);
+
+      //  foreach (var hit in hits)
+       //     if (condition(hit.transform.gameObject))
+      //      {
+      //          Debug.Log("hoelo");
+      //          return hit.transform.gameObject;
+     //       }
+     //   return null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Debug.Log("OnSelected");
+
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if (hit.transform.gameObject.GetComponent<Furniture>() != null)
+            {
+                Debug.Log(hit.transform.gameObject.name);
                 return hit.transform.gameObject;
+            }
+            
+        }
+        return null;
+    }
+
+    private GameObject OnSelectTile(Predicate<GameObject> condition)
+    {
+        //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // var hits = Physics.RaycastAll(ray, Mathf.Infinity);
+
+        //  foreach (var hit in hits)
+        //     if (condition(hit.transform.gameObject))
+        //      {
+        //          Debug.Log("hoelo");
+        //          return hit.transform.gameObject;
+        //       }
+        //   return null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 100))
+        {
+            if (hit.transform.gameObject.GetComponent<Tile>() != null)
+            {
+                Debug.Log(hit.transform.gameObject.name);
+                return hit.transform.gameObject;
+            }
+
+        }
         return null;
     }
 
@@ -150,18 +203,38 @@ public class GridManager : MonoBehaviour {
     private bool OnInvalid(Furniture furniture, out List<Tile> area)
     {
         area = new List<Tile>();
-        for (int i = 0; i < furniture.width; i++)
+        if (furniture.direction == Direction.North || furniture.direction == Direction.East)
         {
-            for (int j = 0; j < furniture.length; j++)
+            for (int i = 0; i < furniture.width; i++)
             {
-                var tile = tiles.GetTileByCoordinate(furniture.origin.x + j, furniture.origin.z + i);
-                if (tile == null || tile.isBlock)
+                for (int j = 0; j < furniture.length; j++)
                 {
-                    furniture.SetColor(Color.red);
-                    return true;
-                }
+                    var tile = tiles.GetTileByCoordinate(furniture.origin.x - j, furniture.origin.z - i);
+                    if (tile == null || tile.isBlock)
+                    {
+                        furniture.SetColor(Color.red);
+                        return true;
+                    }
 
-                area.Add(tile);
+                    area.Add(tile);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < furniture.width; i++)
+            {
+                for (int j = 0; j < furniture.length; j++)
+                {
+                    var tile = tiles.GetTileByCoordinate(furniture.origin.x + j, furniture.origin.z + i);
+                    if (tile == null || tile.isBlock)
+                    {
+                        furniture.SetColor(Color.red);
+                        return true;
+                    }
+
+                    area.Add(tile);
+                }
             }
         }
 
@@ -177,5 +250,54 @@ public class GridManager : MonoBehaviour {
         furniture.Move (furniture.previous.tile);
         furniture.Rotate (furniture.previous.direction);
         OnPlaceFurniture(furniture);
+    }
+
+    private void AddNewFurniture(int furniture_id)
+    {
+        GameObject temp = Instantiate(sample_object, new Vector3(-1, -1, -1), Quaternion.identity);
+        
+        temp.transform.parent = GameObject.Find("Unit").transform;
+        if (getAvailablePosition(temp))
+        {
+            OnPlaceFurniture(temp.transform.GetChild(0).GetComponent<Furniture>());
+        }
+        else
+        {
+            Destroy(temp);
+        }
+        
+    }
+
+    private bool getAvailablePosition(GameObject new_object)
+    {
+        Furniture new_furniture = new_object.transform.GetChild(0).GetComponent<Furniture>();
+        for(int i=1; i < tiles.width; i++)
+        {
+            for(int j=1; j< tiles.length; j++)
+            {
+                List<Tile> area;
+                new_furniture.setOrigin(tiles.GetTileByCoordinate(i, j));
+                if (!OnInvalid(new_furniture, out area))
+                {
+                    new_object.transform.position = tiles.GetTileByCoordinate(i, j).transform.position;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private Vector3 GetMouseAsWorldPoint()
+
+    {
+        // Pixel coordinates of mouse (x,y)
+        Vector3 mousePoint = Input.mousePosition;
+
+        // z coordinate of game object on screen
+        mousePoint.z = mZCoord;
+
+        // Convert it to world points
+        return Camera.main.ScreenToWorldPoint(mousePoint);
+
     }
 }
