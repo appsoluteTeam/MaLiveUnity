@@ -25,25 +25,18 @@ namespace Model
 
         private const string Unit_LAYER = "Unit";
         private const string PREVIEW_LAYER = "Preview";
-
+        private Rigidbody r;
         public void Rotate()
         {
-            direction = (Direction)(((int)direction + 1) % 4);
+            direction++;
             transform.Rotate(0, 90, 0);
         }
-
-        public void Rotate(Direction dir)
+      public void Move(Vector3 pos)
         {
-
-            direction = dir;
-            transform.Rotate(0, (int)dir*90, 0);
+            r = transform.GetComponent<Rigidbody>();
+            r.velocity = (pos - transform.position) * 10;
         }
-
-        public void Move(Vector3 pos)
-        {
-            transform.position = pos;
-        }
-
+ 
         public void SetColor(Color color)
         {
             gameObject.GetComponent<Renderer>().material.color = color;
@@ -52,10 +45,9 @@ namespace Model
 
         public void Place()
         {
-          
             gameObject.GetComponent<Renderer>().sortingLayerName = Unit_LAYER;
             previous = new HistoricalData(transform.position, direction);
-           
+            direction = 0;
         }
 
         public void Unplaced()
@@ -63,6 +55,32 @@ namespace Model
             gameObject.GetComponent<Renderer>().sortingLayerName = PREVIEW_LAYER;
         }
 
-        
+        // 가속도 0으로 만들기
+        public void ToVelocityZero()
+        {
+            r.velocity = Vector3.zero;
+        }
+
+        // 가구 잠금
+        public void SetOnIsKinematic()
+        {
+            transform.GetComponent<Rigidbody>().isKinematic = true;
+        }
+        // 잠금 해제
+        public void SetOffIsKinematic()
+        {
+            transform.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
+        public void UndoMove()
+        {
+            transform.position = previous.pos;
+        }
+        public void UndoRotate()
+        {
+            Debug.Log(direction);
+            transform.Rotate(0, (int)direction * 90 * -1, 0); 
+            direction = 0;
+        }
     }
 }

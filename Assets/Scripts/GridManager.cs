@@ -35,7 +35,7 @@ public class GridManager : MonoBehaviour {
             interactBtnGroup.gameObject.SetActive(false);
         });
         rotateButton.onClick.AddListener(() => {
-  //              RotateItem(out area);
+            RotateItem();
         });
         undoButton.onClick.AddListener(() => {
             OnUndo(SelectedFurniture);
@@ -94,6 +94,7 @@ public class GridManager : MonoBehaviour {
         if (SelectedFurniture == null)
             return;
 
+        SelectedFurniture.SetOffIsKinematic();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float distance; // the distance from the ray origin to the ray intersection of the plane
@@ -113,6 +114,9 @@ public class GridManager : MonoBehaviour {
             return;
 
         var centerPoint = Camera.main.WorldToScreenPoint(SelectedFurniture.transform.position);
+        
+        // 가속도 없애기
+        SelectedFurniture.ToVelocityZero();
         interactBtnGroup.position = centerPoint;
         interactBtnGroup.gameObject.SetActive(true);
         //TODO: colider 충돌시 false값 출력
@@ -142,7 +146,6 @@ public class GridManager : MonoBehaviour {
                 Debug.Log(hit.transform.gameObject.name);
                 return hit.transform.gameObject;
             }
-            
         }
         return null;
     }
@@ -151,10 +154,11 @@ public class GridManager : MonoBehaviour {
     {
         if (furniture == null)
             return;
-            furniture.Place();
-            furniture.SetColor(Color.white);
-            SelectedFurniture = null;
-        }
+        furniture.Place();
+        furniture.SetColor(Color.white);
+        SelectedFurniture = null;
+        furniture.SetOnIsKinematic(); 
+    }
  
   /*  private bool OnInvalid(Furniture furniture, out List<Tile> area)
     {
@@ -205,15 +209,14 @@ public class GridManager : MonoBehaviour {
         if (furniture.previous == null)
             return;
 
-        furniture.Move (furniture.previous.pos);
-        furniture.Rotate (furniture.previous.direction);
-         OnPlaceFurniture(furniture);
+        furniture.UndoMove();
+        furniture.UndoRotate();
+        OnPlaceFurniture(furniture);
     }
 
     private void AddNewFurniture(int furniture_id)
     {
         GameObject temp = Instantiate(sample_object, new Vector3(1, sample_object.transform.localScale.y/2, 1), Quaternion.identity);
-
         temp.transform.parent = GameObject.Find("Unit").transform;
         OnPlaceFurniture(temp.GetComponent<Furniture>());
 
