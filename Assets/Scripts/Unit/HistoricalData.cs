@@ -1,14 +1,16 @@
-﻿namespace Model
+﻿using UnityEngine;
+
+namespace Model
 {
     public class HistoricalData
     {
-        public Tile tile { get; private set; }
+        public Vector3 pos { get; private set; }
         public Direction direction { get; private set; }
 
-        public HistoricalData(Tile previousTile, Direction previousDir)
+        public HistoricalData(Vector3 previousPos, Direction previousDir)
         {
             this.direction = previousDir;
-            this.tile = previousTile;
+            this.pos = previousPos;
         }
     }
 }
